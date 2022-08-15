@@ -141,3 +141,73 @@ body {
 .buttonCalculator {
     width: 100% !important;
 }
+
+/*ToDoListPage*/
+
+.box {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+#heading {
+    text-align: center;
+}
+
+.item {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #F1F1F1;
+}
+
+.item:last-child {
+    border-bottom: 0;
+}
+
+.inputToDo:checked+p {
+    text-decoration: line-through;
+    text-decoration-color: #FFC107;
+    text-decoration-thickness: 20%;
+}
+
+.inputToDo[type="checkbox"] {
+    margin: 20px;
+}
+
+.buttonToDo{
+    min-height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border-color: transparent;
+    background-color: #FFC107;
+    color: black;
+    font-size: 30px;
+    padding-bottom: 6px;
+    border-width: 0;
+}
+
+.inputToDo[type="text"] {
+    color: white;
+    text-align: center;
+    height: 60px;
+    top: 10px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    font-weight: 200;
+    width: 313px;
+}
+
+
+.inputToDo[type="text"]:focus {
+    outline: none;
+    box-shadow: inset 0 -3px 0 0 #FFC107;
+}
+
+::placeholder {
+    color: grey;
+    opacity: 1;
+}

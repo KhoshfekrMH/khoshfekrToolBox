@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser  = require('body-parser');
+const date = require(__dirname + "/data.js");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
@@ -35,7 +36,21 @@ app.post("/BMI" , function (req,res) {
 });
 //#endregion
 
+//#region TODOLIST page("/ToDoList")
+const items = ["buy food", "cook food", "eat food"];
+app.get("/ToDoList",function (req,res) {
 
+    const dayTime = date.getData();
+   res.render("toDoList" , {
+       homeNavActive: "",
+       BMINavActive: "",
+       toDoListNavActive: "active",
+       weatherNavActive: "",
+       signUpNavActive: "",
+       listTitle: dayTime,
+       newListItems: items
+   });
+});
 
 app.listen(3000, function () {
     console.log("server is started on port 3000");

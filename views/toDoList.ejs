@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToolBox</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="icon" href="images/favicon.ico?=v">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <%- include('headerLayOut'); -%>
+    <div class="text-bg-dark" id="heading">
+        <h1> <%= listTitle %> </h1>
+    </div>
+    <div class="box text-bg-dark">
+        <% for(let i=0; i<newListItems.length; i++){ %>
+            <div class="item">
+                <input class="inputToDo" type="checkbox">
+                <p><%= newListItems[i] %></p>
+            </div>
+        <% } %>
+
+        <form clsss="item" action="/" method="post">
+            <input class="inputToDo" type="text" name="newItem" placeholder="New Item" autocomplete="off">
+            <button type="submit" name="button" value=<%= listTitle %> class="buttonToDo">+</button>
+        </form>
+    </div>
+
+    <%- include('footerLayOut'); -%>
+</div>
+<script src="js/bootstrap.esm.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+
+
+</html>
