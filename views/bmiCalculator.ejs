@@ -6,17 +6,28 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="icon" href="images/favicon.ico?=v">
     <link rel="stylesheet" href="css/styles.css">
-
-
 </head>
 
 <body class="d-flex h-100 text-center text-bg-dark">
-
+<lottie-player src="<%= leftAnimationlink %>"  background="transparent"  speed="1"  style="width: 1000px; height: 1000px;"  loop  autoplay></lottie-player>
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <%- include('headerLayOut'); -%>
+    <h2><%= resultBMI %></h2>
+    <form action="/BMI" method="post" class="form-signin w-100 m-auto">
+        <div class="input-group mb-3">
+            <span class="input-group-text text-bg-dark">Weight</span>
+            <input type="text" class="form-control" name="weightBox">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text text-bg-dark" >Height</span>
+            <input type="text" class="form-control" name="heightBox">
+        </div>
+        <button class="buttonCalculator btn btn-outline-warning" type="submit">calculate</button>
+    </form>
     <%- include('footerLayOut'); -%>
 </div>
-
+<lottie-player src="<%= rightAnimationlink %>"  background="transparent"  speed="1"  style="width: 1000px; height: 1000px;"  loop  autoplay></lottie-player>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="js/bootstrap.esm.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/bootstrap.js"></script>
