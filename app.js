@@ -9,7 +9,12 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
 app.get("/", function (req,res) {
-    res.send("HelloWorld");
+    res.sendFile(__dirname + "/index.html");
+});
+
+//#region BMI calculatorPage("/BMI")
+app.get("/BMI" , function (req,res) {
+   res.render("bmiCalculator" , {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: ""});
 });
 
 app.listen(3000, function () {
