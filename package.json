@@ -1,0 +1,24 @@
+{
+  "name": "khoshfekrtoolbox",
+  "version": "1.0.0",
+  "description": "a full toolbox website include all Angela Yu node Project from Udemy",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KhoshfekrMH/khoshfekrToolBox.git"
+  },
+  "author": "Khoshfekr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KhoshfekrMH/khoshfekrToolBox/issues"
+  },
+  "homepage": "https://github.com/KhoshfekrMH/khoshfekrToolBox#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  }
+}
