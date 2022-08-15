@@ -39,7 +39,6 @@ app.post("/BMI" , function (req,res) {
 //#region TODOLIST page("/ToDoList")
 const items = ["buy food", "cook food", "eat food"];
 app.get("/ToDoList",function (req,res) {
-
     const dayTime = date.getData();
    res.render("toDoList" , {
        homeNavActive: "",
@@ -50,6 +49,12 @@ app.get("/ToDoList",function (req,res) {
        listTitle: dayTime,
        newListItems: items
    });
+});
+
+app.post("/ToDoList", function (req,res) {
+    const item = req.body.newItem;
+    items.push(item);
+    res.redirect("/ToDoList");
 });
 
 app.listen(3000, function () {
