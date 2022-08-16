@@ -2,7 +2,10 @@
 
 const express = require('express');
 const bodyParser  = require('body-parser');
+const https = require("https");
 const date = require(__dirname + "/data.js");
+const apiWeather = require(__dirname + "/apiKey.js")
+const {response} = require("express");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
@@ -66,6 +69,39 @@ app.get("/Weather", function (req,res) {
         toDoListNavActive: "",
         weatherNavActive: "active",
         signUpNavActive: "",
+        weatherIcon: "",
+        weatherTemperature: "",
+        weatherDescription: ""
+    });
+});
+
+app.post("/Weather", function (req,res) {
+    const city = req.body.citySelection;
+    const unit = req.body.tempUnit;
+    const APIkey = apiWeather.APIweather;
+
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + unit + "&appid=" + APIkey;
+
+    https.get(url, function (response) {
+        console.log(response.statusCode);
+        response.on("data", function (data) {
+            const weatherData = JSON.parse(data);
+            const temperature = weatherData.main.temp;
+            const weatherDescription = weatherData.weather[0].description;
+            const icon = weatherData.weather[0].icon;
+            const imageURL = " http://openweathermap.org/img/wn/" + icon + "@2x.png";
+
+            res.render("Weather" , {
+                homeNavActive: "",
+                BMINavActive: "",
+                toDoListNavActive: "",
+                weatherNavActive: "active",
+                signUpNavActive: "",
+                weatherIcon: imageURL,
+                weatherTemperature: temperature,
+                weatherDescription: weatherDescription
+            });
+        });
     });
 });
 
