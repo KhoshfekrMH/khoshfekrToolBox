@@ -58,6 +58,17 @@ app.post("/ToDoList", function (req,res) {
 });
 //#endregion
 
+//#region Weather page("/Weather")
+app.get("/Weather", function (req,res) {
+    res.render("Weather" , {
+        homeNavActive: "",
+        BMINavActive: "",
+        toDoListNavActive: "",
+        weatherNavActive: "active",
+        signUpNavActive: "",
+    });
+});
+
 app.listen(3000, function () {
     console.log("server is started on port 3000");
 });
