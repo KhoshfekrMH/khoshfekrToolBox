@@ -114,10 +114,72 @@ app.get("/Mailchimp", function (req,res) {
         toDoListNavActive: "",
         weatherNavActive: "",
         signUpNavActive: "active",
+        alertSuccess: "hidden",
+        alertFailure: "hidden"
     });
 });
 
+app.post("/Mailchimp", function (req,res) {
+    const email = req.body.emailInput;
+    const firstName = req.body.firstNameInput;
+    const lastName = req.body.lastNameInput;
 
+    let data = {
+        members: [
+            {
+                email_address: email,
+                status: "subscribed",
+                merge_fields:{
+                    FNAME: firstName,
+                    LNAME: lastName
+                }
+            }
+        ]
+    };
+
+    const jsonData = JSON.stringify(data);
+    const listCode = api.mailchimpListCode;
+    const APIkey = api.APImailchimp;
+    const url = "https://us14.api.mailchimp.com/3.0/lists/" + listCode;
+
+    const options = {
+        method: "POST",
+
+        auth: APIkey
+    }
+
+    const request = https.request(url, options, function (response) {
+        response.on("data", function (data) {
+            console.log(JSON.parse(data));
+
+            if(response.statusCode === 200){
+                res.render("Mailchimp" , {
+                    homeNavActive: "",
+                    BMINavActive: "",
+                    toDoListNavActive: "",
+                    weatherNavActive: "",
+                    signUpNavActive: "active",
+                    alertSuccess: "visible",
+                    alertFailure: "hidden"
+                });
+            } else {
+                res.render("Mailchimp" , {
+                    homeNavActive: "",
+                    BMINavActive: "",
+                    toDoListNavActive: "",
+                    weatherNavActive: "",
+                    signUpNavActive: "active",
+                    alertSuccess: "hidden",
+                    alertFailure: "visible"
+                });
+            }
+        });
+    });
+
+    request.write(jsonData);
+    request.end();
+});
+//#endregion
 
 app.listen(3000, function () {
     console.log("server is started on port 3000");
