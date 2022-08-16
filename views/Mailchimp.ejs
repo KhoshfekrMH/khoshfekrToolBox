@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToolBox</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="icon" href="images/favicon.ico?=v">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <%- include('headerLayOut'); -%>
+    <main class="form-signin w-100 m-auto">
+        <form>
+            <img class="mb-4" src="images/MC_Logo-129715158.jpeg" alt="" width="100px" height="auto">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="form-floating">
+                <input type="email" class="form-control text-bg-dark topFormSignIn" id="floatingInputEmail" name="emailInput" placeholder="name@example.com">
+                <label for="floatingInputEmail">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control text-bg-dark middleFormSignIn" id="floatingInputFirstName" name="firstNameInput" placeholder="First Name">
+                <label for="floatingInputFirstName">First Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control text-bg-dark bottomFormSignIn" id="floatingInputLastName" name="lastNameInput" placeholder="Last Name">
+                <label for="floatingInputLastName">Last Name</label>
+            </div>
+            <button class="buttonMailchimp btn btn btn-warning" type="submit">Sign in</button>
+        </form>
+    </main>
+    <%- include('footerLayOut'); -%>
+</div>
+<script src="js/bootstrap.esm.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+
+
+</html>

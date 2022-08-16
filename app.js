@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser  = require('body-parser');
 const https = require("https");
 const date = require(__dirname + "/data.js");
-const apiWeather = require(__dirname + "/apiKey.js")
+const api = require(__dirname + "/apiKey.js");
 const {response} = require("express");
 
 const app = express();
@@ -78,7 +78,7 @@ app.get("/Weather", function (req,res) {
 app.post("/Weather", function (req,res) {
     const city = req.body.citySelection;
     const unit = req.body.tempUnit;
-    const APIkey = apiWeather.APIweather;
+    const APIkey = api.APIweather;
 
     const url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + unit + "&appid=" + APIkey;
 
@@ -104,6 +104,20 @@ app.post("/Weather", function (req,res) {
         });
     });
 });
+//#endregion
+
+//#region Mailchimp page("/Mailchimp")
+app.get("/Mailchimp", function (req,res) {
+    res.render("Mailchimp" , {
+        homeNavActive: "",
+        BMINavActive: "",
+        toDoListNavActive: "",
+        weatherNavActive: "",
+        signUpNavActive: "active",
+    });
+});
+
+
 
 app.listen(3000, function () {
     console.log("server is started on port 3000");
