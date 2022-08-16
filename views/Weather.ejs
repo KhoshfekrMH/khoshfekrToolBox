@@ -14,21 +14,11 @@
     <main class="px-3">
         <img src="<%= weatherIcon %>" width="auto" height="auto">
         <h1><%= weatherTemperature %></h1>
-        <p tyle="margin-bottom: 20px"><%= weatherDescription %></p>
+        <p tyle="margin-bottom: 20px" class="lead"><%= weatherDescription %></p>
         <form action="/Weather" method="post">
             <div class="mb-3">
-                <label for="city" class="form-label">🌎 Choose a city to check it's weather 🌎</label>
-                <select name="citySelection" id="city" class="form-select">
-                    <option value="0">-- Select Country --</option>
-                    <option value="United States">United States</option>
-                    <option value="Tehran">Tehran</option>
-                    <option value="New York">NewYork</option>
-                    <option value="Washington">Washington</option>
-                    <option value="London">London</option>
-                    <option value="Ottawa">Ottawa</option>
-                    <option value="Paris">Paris</option>
-                    <option value="rudsar">Rudsar</option>
-                </select>
+                <label for="city" class="form-label">🌎 Write your city name to check it's weather 🌎</label>
+                <input name="citySelection" id="city" class="form-control">
             </div>
             <div class="mb-3">
                 <label for="tempUnit" class="form-label">🌡 Choose temperature unit 🌡</label>
