@@ -1,15 +1,19 @@
-//jshint esversion: 8
+//jshint esversion: 6
 
 const express = require('express');
 const bodyParser  = require('body-parser');
 const https = require("https");
+const ejs = require("ejs");
 const date = require(__dirname + "/data.js");
 const api = require(__dirname + "/apiKey.js");
 const {response} = require("express");
+const _ = require("lodash");
+let posts = [];
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static("public"));
+app.use('/posts/:postName', express.static('public'));
 app.set('view engine', 'ejs');
 
 app.get("/", function (req,res) {
@@ -18,7 +22,7 @@ app.get("/", function (req,res) {
 
 //#region BMI calculatorPage("/BMI")
 app.get("/BMI" , function (req,res) {
-   res.render("bmiCalculator" , {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI:"", leftAnimationlink:"", rightAnimationlink:""});
+   res.render("bmiCalculator" , {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI:"", leftAnimationlink:"", rightAnimationlink:"",  blogNavActive: ""});
 });
 
 app.post("/BMI" , function (req,res) {
@@ -28,11 +32,11 @@ app.post("/BMI" , function (req,res) {
     let resultBMI = (weight / ((height * height) / 10000)).toFixed(2);
 
     if(resultBMI < 18.6){
-        res.render("bmiCalculator", {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI: "your bmi is " + resultBMI + " and you are under weight 😰", leftAnimationlink:"" , rightAnimationlink:""});
+        res.render("bmiCalculator", {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI: "your bmi is " + resultBMI + " and you are under weight 😰", leftAnimationlink:"" , rightAnimationlink:"", blogNavActive: ""});
     } else if(resultBMI >= 18.6 && resultBMI < 24.9){
-        res.render("bmiCalculator", {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI: "your bmi is " + resultBMI + " and you are Normal 😎", leftAnimationlink:"https://assets9.lottiefiles.com/packages/lf20_qel8j26q.json" , rightAnimationlink:"https://assets9.lottiefiles.com/packages/lf20_qel8j26q.json"});
+        res.render("bmiCalculator", {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI: "your bmi is " + resultBMI + " and you are Normal 😎", leftAnimationlink:"https://assets9.lottiefiles.com/packages/lf20_qel8j26q.json" , rightAnimationlink:"https://assets9.lottiefiles.com/packages/lf20_qel8j26q.json", blogNavActive: ""});
     } else if(resultBMI > 18.6){
-        res.render("bmiCalculator", {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI: "your bmi is " + resultBMI + " and you are Over Weight 😐",leftAnimationlink:"" , rightAnimationlink:""});
+        res.render("bmiCalculator", {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI: "your bmi is " + resultBMI + " and you are Over Weight 😐",leftAnimationlink:"" , rightAnimationlink:"", blogNavActive: ""});
     } else {
         res.render("bmiCalculator", {homeNavActive: "" , BMINavActive: "active" , toDoListNavActive: "", weatherNavActive: "", signUpNavActive: "", resultBMI: "No Answer"});
     }
@@ -49,6 +53,7 @@ app.get("/ToDoList",function (req,res) {
        toDoListNavActive: "active",
        weatherNavActive: "",
        signUpNavActive: "",
+       blogNavActive: "",
        listTitle: dayTime,
        newListItems: items
    });
@@ -69,6 +74,7 @@ app.get("/Weather", function (req,res) {
         toDoListNavActive: "",
         weatherNavActive: "active",
         signUpNavActive: "",
+        blogNavActive: "",
         weatherIcon: "",
         weatherTemperature: "",
         weatherDescription: ""
@@ -97,6 +103,7 @@ app.post("/Weather", function (req,res) {
                 toDoListNavActive: "",
                 weatherNavActive: "active",
                 signUpNavActive: "",
+                blogNavActive: "",
                 weatherIcon: imageURL,
                 weatherTemperature: temperature,
                 weatherDescription: weatherDescription
@@ -114,6 +121,7 @@ app.get("/Mailchimp", function (req,res) {
         toDoListNavActive: "",
         weatherNavActive: "",
         signUpNavActive: "active",
+        blogNavActive: "",
         alertSuccess: "hidden",
         alertFailure: "hidden"
     });
@@ -159,6 +167,7 @@ app.post("/Mailchimp", function (req,res) {
                     toDoListNavActive: "",
                     weatherNavActive: "",
                     signUpNavActive: "active",
+                    blogNavActive: "",
                     alertSuccess: "visible",
                     alertFailure: "hidden"
                 });
@@ -169,6 +178,7 @@ app.post("/Mailchimp", function (req,res) {
                     toDoListNavActive: "",
                     weatherNavActive: "",
                     signUpNavActive: "active",
+                    blogNavActive: "",
                     alertSuccess: "hidden",
                     alertFailure: "visible"
                 });
@@ -178,6 +188,84 @@ app.post("/Mailchimp", function (req,res) {
 
     request.write(jsonData);
     request.end();
+});
+//#endregion
+
+//#region Blog page("/blog")
+app.get("/blog", function (req,res) {
+    res.render("postPage", {
+        homeNavActive: "",
+        BMINavActive: "",
+        toDoListNavActive: "",
+        weatherNavActive: "",
+        signUpNavActive: "",
+        blogNavActive: "active",
+        posts: posts
+    });
+});
+
+
+//#endregion
+
+//#region compose page("/compose")
+app.get("/compose", function (req,res) {
+    res.render("postCompose", {
+        homeNavActive: "",
+        BMINavActive: "",
+        toDoListNavActive: "",
+        weatherNavActive: "",
+        signUpNavActive: "",
+        blogNavActive: ""
+    });
+});
+
+
+app.post("/compose", function (req,res) {
+    const post = {
+        title: req.body.postTitle,
+        content: req.body.postBody
+    };
+
+    posts.push(post);
+    res.redirect("/blog");
+});
+//#endregion
+
+//#region post page("/posts/:topic")
+app.get("/posts/:postName", function (req,res) {
+    const requestedTitle = _.lowerCase(req.params.postName);
+    posts.forEach(function (post) {
+       const storedTitle = _.lowerCase(post.title);
+       if (requestedTitle === storedTitle){
+           res.render("defualtPostPage", {
+               homeNavActive: "",
+               BMINavActive: "",
+               toDoListNavActive: "",
+               weatherNavActive: "",
+               signUpNavActive: "",
+               blogNavActive: "",
+               postTitle: post.title,
+               postBody: post.content
+           });
+       }
+    });
+});
+//#endregion
+
+//#region 404 page("*")
+app.get("*",(req,res) => {
+    res.render("404", {
+        homeNavActive: "",
+        BMINavActive: "",
+        toDoListNavActive: "",
+        weatherNavActive: "",
+        signUpNavActive: "",
+        blogNavActive: "",
+    });
+});
+
+app.post("*",function (req,res) {
+   res.redirect("/");
 });
 //#endregion
 

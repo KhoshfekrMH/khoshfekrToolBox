@@ -244,3 +244,8 @@ body {
 .buttonMailchimp{
     width: 300px;
 }
+
+/*post page*/
+.postsText{
+    text-align: left;
+}

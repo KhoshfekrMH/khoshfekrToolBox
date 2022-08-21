@@ -10,8 +10,8 @@
 
 <body class="d-flex h-100 text-center text-bg-dark">
 <lottie-player src="<%= leftAnimationlink %>"  background="transparent"  speed="1"  style="width: 1000px; height: 1000px;"  loop  autoplay></lottie-player>
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <%- include('headerLayOut'); -%>
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column" style="width: 784px;">
+    <%- include("partials/header"); -%>
     <h2><%= resultBMI %></h2>
     <form action="/BMI" method="post" class="form-signin w-100 m-auto">
         <div class="input-group mb-3">
@@ -24,7 +24,7 @@
         </div>
         <button class="buttonCalculator btn btn-outline-warning" type="submit">calculate</button>
     </form>
-    <%- include('footerLayOut'); -%>
+    <%- include("partials/footer"); -%>
 </div>
 <lottie-player src="<%= rightAnimationlink %>"  background="transparent"  speed="1"  style="width: 1000px; height: 1000px;"  loop  autoplay></lottie-player>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>

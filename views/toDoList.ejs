@@ -10,7 +10,7 @@
 
 <body class="d-flex h-100 text-center text-bg-dark">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <%- include('headerLayOut'); -%>
+    <%- include("partials/header"); -%>
     <div class="text-bg-dark" id="heading">
         <h1> <%= listTitle %> </h1>
     </div>
@@ -27,7 +27,7 @@
             <button type="submit" name="button" value=<%= listTitle %> class="buttonToDo">+</button>
         </form>
     </div>
-    <%- include('footerLayOut'); -%>
+    <%- include("partials/footer"); -%>
 </div>
 
 <script src="js/bootstrap.esm.js"></script>
