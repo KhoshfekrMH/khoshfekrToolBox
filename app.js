@@ -193,15 +193,26 @@ app.post("/Mailchimp", function (req,res) {
 
 //#region Blog page("/blog")
 app.get("/blog", function (req,res) {
-    res.render("postPage", {
-        homeNavActive: "",
-        BMINavActive: "",
-        toDoListNavActive: "",
-        weatherNavActive: "",
-        signUpNavActive: "",
-        blogNavActive: "active",
-        posts: posts
-    });
+    if(posts.length > 0){
+        res.render("postPage", {
+            homeNavActive: "",
+            BMINavActive: "",
+            toDoListNavActive: "",
+            weatherNavActive: "",
+            signUpNavActive: "",
+            blogNavActive: "active",
+            posts: posts
+        });
+    } else {
+        res.render("emptyPostPage", {
+            homeNavActive: "",
+            BMINavActive: "",
+            toDoListNavActive: "",
+            weatherNavActive: "",
+            signUpNavActive: "",
+            blogNavActive: "active",
+        });
+    }
 });
 
 
