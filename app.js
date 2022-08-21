@@ -122,8 +122,8 @@ app.get("/Mailchimp", function (req,res) {
         weatherNavActive: "",
         signUpNavActive: "active",
         blogNavActive: "",
-        alertSuccess: "hidden",
-        alertFailure: "hidden"
+        alertSuccess: "none",
+        alertFailure: "none"
     });
 });
 
@@ -168,8 +168,8 @@ app.post("/Mailchimp", function (req,res) {
                     weatherNavActive: "",
                     signUpNavActive: "active",
                     blogNavActive: "",
-                    alertSuccess: "visible",
-                    alertFailure: "hidden"
+                    alertSuccess: "block",
+                    alertFailure: "none"
                 });
             } else {
                 res.render("Mailchimp" , {
@@ -179,8 +179,8 @@ app.post("/Mailchimp", function (req,res) {
                     weatherNavActive: "",
                     signUpNavActive: "active",
                     blogNavActive: "",
-                    alertSuccess: "hidden",
-                    alertFailure: "visible"
+                    alertSuccess: "none",
+                    alertFailure: "block"
                 });
             }
         });
